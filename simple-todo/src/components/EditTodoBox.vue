@@ -28,6 +28,9 @@
         },
         mounted(){
             this.updatedTodoInputValue = this.prevTodoText ?? ""
+        },
+        updated(){
+            this.updatedTodoInputValue = this.prevTodoText ?? ""
         }
     }
 </script>
