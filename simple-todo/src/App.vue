@@ -1,9 +1,11 @@
 <script>
 import AddTodoBox from './components/AddTodoBox.vue';
+import TodoCard from './components/TodoCard.vue';
 
 export default {
   components : {
-    AddTodoBox
+    AddTodoBox,
+    TodoCard
   },
   data() {
     return {
@@ -27,6 +29,12 @@ export default {
       }
       
       this.todoList.push(newTodo)
+    },
+    deleteTodo(todoId){
+      this.todoList = this.todoList.filter(item => item.id !== todoId)
+    },
+    editTodo(todoId){
+      console.log(todoId)
     }
   }
 }
@@ -49,8 +57,14 @@ export default {
       </div>
     </div>
     
-    <div class="w-full mt-[16px] ">
+    <div class="w-full py-[16px] border-b border-black">
       <AddTodoBox :addTodoFunction="addTodo" />
+    </div>
+
+    <div class="w-full py-[16px] flex flex-col gap-[8px]">
+      <div class="w-full" v-for="todo in todoList">
+        <TodoCard :id="todo.id" :title="todo.todo" :deleteFunction="deleteTodo"/>
+      </div>
     </div>
   </div>
 </template>
