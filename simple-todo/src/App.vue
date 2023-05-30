@@ -81,7 +81,7 @@ export default {
     </div>
 
     <div class="w-full py-[16px] flex flex-col gap-[8px]">
-      <div class="w-full" v-for="todo in todoList">
+      <div class="w-full" v-for="todo in todoList" :key="todo.id">
         <TodoCard :id="todo.id" :title="todo.todo" :deleteFunction="deleteTodo" :editFunction="editTodo"/>
       </div>
     </div>
