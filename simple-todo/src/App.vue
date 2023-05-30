@@ -1,11 +1,13 @@
 <script>
 import AddTodoBox from './components/AddTodoBox.vue';
 import TodoCard from './components/TodoCard.vue';
+import EditTodoBox from './components/EditTodoBox.vue';
 
 export default {
   components : {
     AddTodoBox,
-    TodoCard
+    TodoCard,
+    EditTodoBox
   },
   data() {
     return {
@@ -15,7 +17,11 @@ export default {
           todo : "test",
           isDone : false
         }
-      ]
+      ],
+      editMode : {
+        status : false,
+        todoId : null
+      }
     }
   },
   methods : {
@@ -34,7 +40,15 @@ export default {
       this.todoList = this.todoList.filter(item => item.id !== todoId)
     },
     editTodo(todoId){
-      console.log(todoId)
+      this.editMode = {
+        status : true,
+        todoId
+      }
+      console.log(this.editMode)
+    },
+    updateTodo(todoId,newTodoText){
+      this.todoList.find(item => item.id === todoId).todo = newTodoText
+      this.editMode.status = false
     }
   }
 }
@@ -58,12 +72,17 @@ export default {
     </div>
     
     <div class="w-full py-[16px] border-b border-black">
-      <AddTodoBox :addTodoFunction="addTodo" />
+      <EditTodoBox v-if="editMode.status" 
+      :id="editMode.todoId" 
+      :prevTodoText="todoList.find(item=> item.id === editMode.todoId).todo"
+      :updateTodoFunction="updateTodo"
+      />
+      <AddTodoBox v-else :addTodoFunction="addTodo" />
     </div>
 
     <div class="w-full py-[16px] flex flex-col gap-[8px]">
       <div class="w-full" v-for="todo in todoList">
-        <TodoCard :id="todo.id" :title="todo.todo" :deleteFunction="deleteTodo"/>
+        <TodoCard :id="todo.id" :title="todo.todo" :deleteFunction="deleteTodo" :editFunction="editTodo"/>
       </div>
     </div>
   </div>
