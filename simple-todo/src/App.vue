@@ -36,6 +36,9 @@ export default {
       
       this.todoList.push(newTodo)
     },
+    completeTodo(todoId){
+      this.todoList.find(item => item.id === todoId).isDone = !this.todoList.find(item => item.id === todoId).isDone
+    },
     deleteTodo(todoId){
       this.todoList = this.todoList.filter(item => item.id !== todoId)
     },
@@ -44,7 +47,6 @@ export default {
         status : true,
         todoId
       }
-      console.log(this.editMode)
     },
     updateTodo(todoId,newTodoText){
       this.todoList.find(item => item.id === todoId).todo = newTodoText
@@ -82,7 +84,7 @@ export default {
 
     <div class="w-full py-[16px] flex flex-col gap-[8px]">
       <div class="w-full" v-for="todo in todoList" :key="todo.id">
-        <TodoCard :id="todo.id" :title="todo.todo" :deleteFunction="deleteTodo" :editFunction="editTodo"/>
+        <TodoCard :id="todo.id" :title="todo.todo" :isDone="todo.isDone" :deleteFunction="deleteTodo" :editFunction="editTodo" :completeTodo="completeTodo"/>
       </div>
     </div>
   </div>

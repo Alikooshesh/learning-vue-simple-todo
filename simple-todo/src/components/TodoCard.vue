@@ -10,6 +10,9 @@
         isDone : {
             type : Boolean
         },
+        completeTodo : {
+            type : Function
+        },
         editFunction : {
             type : Function
         },
@@ -21,7 +24,13 @@
 
 <template>
     <div class="w-full h-[40px] px-[8px] py-[4px] flex flex-col md:flex-row items-center gap-[8px]">
-        <p class="w-full h-[40px] px-[8px] bg-[rgb(210,200,200)] rounded-[8px] flex items-center">{{ title }}</p>
+        <p 
+        class="w-full h-[40px] px-[8px] bg-[rgb(210,200,200)] rounded-[8px] flex items-center hover:bg-[rgb(200,200,200)] cursor-pointer" 
+        :class="[isDone && 'line-through']"
+        @click="completeTodo(id)"
+        >
+            {{ title }}
+        </p>
         <button @click="deleteFunction(id)" class="p-[8px] max-h-[40px] bg-[rgb(210,200,200)] text-black text-[32px] rounded-[8px] flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
